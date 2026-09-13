@@ -280,6 +280,167 @@ function App() {
         closeOnClick
         pauseOnHover
       />
+
+      {/* ==================== FOOTER ==================== */}
+
+      <footer className="mt-16 border-t border-gray-100 bg-white">
+        {/* ekhane ami footer-er main content fixed width-er moddhe rakhtesi */}
+        <div className="mx-auto max-w-[1200px] px-6 py-14">
+          {/* ekhane ami brand ar link group-gula pasapasi rakhtesi */}
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-5">
+            {/* ==================== BRAND BLOCK ==================== */}
+
+            <div className="md:col-span-2">
+              {/* ekhane ami footer-e Dev Stack-er logo rakhtesi */}
+              <div className="flex items-center">
+                <img src={logo} alt="Dev Stack" className="h-8" />
+              </div>
+
+              {/* ekhane ami brand-er short description rakhtesi */}
+              <p className="mt-4 max-w-md text-sm leading-6 text-gray-400">
+                Curated tools, technologies, and resources for developers
+                building modern software.
+              </p>
+
+              {/* ekhane ami social links-gula rakhtesi */}
+              <div className="mt-5 flex items-center gap-5">
+                <a
+                  href="#"
+                  className="text-sm font-medium text-gray-500 hover:text-gray-800"
+                >
+                  GitHub
+                </a>
+
+                <a
+                  href="#"
+                  className="text-sm font-medium text-gray-500 hover:text-gray-800"
+                >
+                  Twitter
+                </a>
+
+                <a
+                  href="#"
+                  className="text-sm font-medium text-gray-500 hover:text-gray-800"
+                >
+                  LinkedIn
+                </a>
+              </div>
+            </div>
+
+            {/* ==================== PRODUCT ==================== */}
+
+            <div>
+              {/* ekhane ami Product link group-er heading rakhtesi */}
+              <h3 className="text-sm font-bold uppercase tracking-wide text-gray-800">
+                Product
+              </h3>
+
+              {/* ekhane ami Product-er link gula rakhtesi */}
+              <div className="mt-5 space-y-3">
+                <a
+                  href="#"
+                  className="block text-sm text-gray-400 hover:text-gray-700"
+                >
+                  Home
+                </a>
+
+                <a
+                  href="#"
+                  className="block text-sm text-gray-400 hover:text-gray-700"
+                >
+                  Technologies
+                </a>
+
+                <a
+                  href="#"
+                  className="block text-sm text-gray-400 hover:text-gray-700"
+                >
+                  Projects
+                </a>
+              </div>
+            </div>
+
+            {/* ==================== COMPANY ==================== */}
+
+            <div>
+              {/* ekhane ami Company link group-er heading rakhtesi */}
+              <h3 className="text-sm font-bold uppercase tracking-wide text-gray-800">
+                Company
+              </h3>
+
+              {/* ekhane ami Company-r link gula rakhtesi */}
+              <div className="mt-5 space-y-3">
+                <a
+                  href="#"
+                  className="block text-sm text-gray-400 hover:text-gray-700"
+                >
+                  About
+                </a>
+
+                <a
+                  href="#"
+                  className="block text-sm text-gray-400 hover:text-gray-700"
+                >
+                  Contact
+                </a>
+
+                <a
+                  href="#"
+                  className="block text-sm text-gray-400 hover:text-gray-700"
+                >
+                  Careers
+                </a>
+              </div>
+            </div>
+
+            {/* ==================== LEGAL ==================== */}
+
+            <div>
+              {/* ekhane ami Legal link group-er heading rakhtesi */}
+              <h3 className="text-sm font-bold uppercase tracking-wide text-gray-800">
+                Legal
+              </h3>
+
+              {/* ekhane ami Legal-er link gula rakhtesi */}
+              <div className="mt-5 space-y-3">
+                <a
+                  href="#"
+                  className="block text-sm text-gray-400 hover:text-gray-700"
+                >
+                  Privacy Policy
+                </a>
+
+                <a
+                  href="#"
+                  className="block text-sm text-gray-400 hover:text-gray-700"
+                >
+                  Terms of Service
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* ==================== FOOTER BOTTOM ==================== */}
+
+          {/* ekhane ami main footer content-er niche divider dicchi */}
+          <div className="mt-12 border-t border-gray-100 pt-7">
+            {/* ekhane ami copyright ar Privacy/Terms link ek sathe rakhtesi */}
+            <div className="flex flex-col gap-4 text-sm text-gray-400 md:flex-row md:items-center md:justify-between">
+              <p>© 2026 Dev Stack. All rights reserved.</p>
+
+              <div className="flex items-center gap-6">
+                <a href="#" className="hover:text-gray-700">
+                  Privacy
+                </a>
+
+                <a href="#" className="hover:text-gray-700">
+                  Terms
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
