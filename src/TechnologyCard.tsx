@@ -50,6 +50,21 @@ const technologyIconColors: Record<string, string> = {
   Docker: "#2496ED",
 };
 
+// ekhane ami protita badge-r jonno Figma-r moto halka background ar text color rakhtesi
+const badgeColors: Record<string, string> = {
+  Popular: "bg-purple-50 text-purple-600 border-purple-100",
+  Versatile: "bg-green-50 text-green-600 border-green-100",
+  Fast: "bg-orange-50 text-orange-600 border-orange-100",
+  Standard: "bg-blue-50 text-blue-600 border-blue-100",
+  "Top SQL": "bg-blue-50 text-blue-600 border-blue-100",
+  Cache: "bg-red-50 text-red-600 border-red-100",
+  Ubiquitous: "bg-yellow-50 text-yellow-600 border-yellow-100",
+  Essential: "bg-violet-50 text-violet-600 border-violet-100",
+  Robust: "bg-orange-50 text-orange-600 border-orange-100",
+  Modern: "bg-cyan-50 text-cyan-600 border-cyan-100",
+  Containers: "bg-blue-50 text-blue-600 border-blue-100",
+};
+
 type Technology = {
   id: number;
   name: string;
@@ -70,6 +85,8 @@ function TechnologyCard({ technology }: TechnologyCardProps) {
 
   // ekhane technology-r name diye tar brand color ta khuje nicchi
   const iconColor = technologyIconColors[technology.name];
+  // ekhane technology-r badge onujai tar color-er class khuje nicchi
+  const badgeStyle = technology.badge ? badgeColors[technology.badge] : "";
 
   return (
     <div className="w-full rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
@@ -82,7 +99,9 @@ function TechnologyCard({ technology }: TechnologyCardProps) {
 
         {/* ekhane ami Figma-r moto badge ta card-er top-right e rakhtesi */}
         {technology.badge && (
-          <span className="rounded-full border border-gray-100 bg-gray-50 px-3 py-1 text-xs font-medium text-gray-500">
+          <span
+            className={`rounded-full border px-3 py-1 text-xs font-medium ${badgeStyle}`}
+          >
             {technology.badge}
           </span>
         )}
