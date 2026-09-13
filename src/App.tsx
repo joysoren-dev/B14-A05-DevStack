@@ -1,5 +1,7 @@
 import logo from "../assets/logo-text.png"; // ekhane ami assets theke navbar-er logo ta import kortesi
 import banner from "../assets/banner-stack.png"; // ekhane ami hero section-er banner image ta import kortesi
+import { technologies } from "./technologies";
+import TechnologyCard from "./TechnologyCard";
 
 function App() {
   return (
@@ -107,6 +109,13 @@ function App() {
         <p className="mt-2 text-base text-gray-500">
           Pick one technology per category to build your ideal stack.
         </p>
+
+        {/* ekhane ami technologies-er sob card 3 ta kore column e dekhacchi */}
+        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {technologies.map((technology) => (
+            <TechnologyCard key={technology.id} technology={technology} />
+          ))}
+        </div>
       </section>
     </div>
   );
