@@ -92,6 +92,22 @@ function App() {
           <img src={banner} alt="Technology stack" className="w-[440px]" />
         </div>
       </section>
+
+      {/* ekhane ami technologies section-er heading ar details ta rakhtesi */}
+      <section className="mx-auto max-w-[1200px] px-6 py-12">
+        {/* ekhane ami technologies section-er main heading ta rakhtesi */}
+        <h2 className="text-4xl font-bold leading-tight text-gray-900">
+          Explore the{" "}
+          <span className="bg-gradient-to-r from-orange-500 via-pink-500 to-violet-600 bg-clip-text text-transparent">
+            Technologies
+          </span>
+        </h2>
+
+        {/* ekhane ami heading-er niche technologies section-er details ta rakhtesi */}
+        <p className="mt-2 text-base text-gray-500">
+          Pick one technology per category to build your ideal stack.
+        </p>
+      </section>
     </div>
   );
 }
