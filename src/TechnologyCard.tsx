@@ -77,14 +77,25 @@ type Technology = {
 
 type TechnologyCardProps = {
   technology: Technology;
+
+  // ekhane ami App theke technology stack-e add korar function ta nicchi
+  addToStack: (technologyId: number) => void;
+
+  // ekhane ami check kortesi technology-ta already stack-e ache kina
+  isAdded: boolean;
 };
 
-function TechnologyCard({ technology }: TechnologyCardProps) {
+function TechnologyCard({
+  technology,
+  addToStack,
+  isAdded,
+}: TechnologyCardProps) {
   // ekhane technology-r name diye correct icon ta khuje nicchi
   const Icon = technologyIcons[technology.name];
 
   // ekhane technology-r name diye tar brand color ta khuje nicchi
   const iconColor = technologyIconColors[technology.name];
+
   // ekhane technology-r badge onujai tar color-er class khuje nicchi
   const badgeStyle = technology.badge ? badgeColors[technology.badge] : "";
 
@@ -132,9 +143,15 @@ function TechnologyCard({ technology }: TechnologyCardProps) {
         </span>
       </div>
 
-      {/* ekhane ami Figma-r main Add to Stack button ta rakhtesi */}
-      <button className="mt-4 w-full rounded-lg bg-[#080d1b] py-3 text-sm font-medium text-white">
-        Add to Stack
+      {/* ekhane ami technology age add hole button-ta disabled kortesi */}
+      <button
+        onClick={() => addToStack(technology.id)}
+        disabled={isAdded}
+        className={`mt-4 w-full rounded-lg py-3 text-sm font-medium text-white ${
+          isAdded ? "cursor-not-allowed bg-gray-400" : "bg-[#080d1b]"
+        }`}
+      >
+        {isAdded ? "✓ Added to Stack" : "Add to Stack"}
       </button>
     </div>
   );

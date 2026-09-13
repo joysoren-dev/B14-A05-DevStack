@@ -1,23 +1,85 @@
-import logo from "../assets/logo-text.png"; // ekhane ami assets theke navbar-er logo ta import kortesi
-import banner from "../assets/banner-stack.png"; // ekhane ami hero section-er banner image ta import kortesi
+import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import logo from "../assets/logo-text.png";
+import banner from "../assets/banner-stack.png";
 import { technologies } from "./technologies";
 import TechnologyCard from "./TechnologyCard";
 
 function App() {
+  // ekhane ami user je technology-gulo stack-e add korbe segulo rakhtesi
+  const [stack, setStack] = useState<number[]>([]);
+
+  // ekhane ami technology-r id niye stack-e add kortesi
+  const addToStack = (technologyId: number) => {
+    // ekhane ami age check kortesi technology-ta already stack-e ache kina
+    const alreadyAdded = stack.includes(technologyId);
+
+    if (alreadyAdded) {
+      // ekhane duplicate add korle ekta warning toast dekhaitesi
+      toast.warning("This technology is already in your stack.");
+      return;
+    }
+
+    // ekhane technology-ta stack-e add kortesi
+    setStack((currentStack) => [...currentStack, technologyId]);
+
+    // ekhane successfully add hole success toast dekhaitesi
+    const technology = technologies.find((item) => item.id === technologyId);
+
+    if (technology) {
+      toast.success(`${technology.name} added to your stack!`);
+    }
+  };
+
+  // ekhane ami stack-e add kora technology-gular full data khuje nicchi
+  const selectedTechnologies = technologies.filter((technology) =>
+    stack.includes(technology.id),
+  );
+
+  // ekhane ami stack theke ekta technology remove kortesi
+  const removeFromStack = (technologyId: number) => {
+    const technology = technologies.find((item) => item.id === technologyId);
+
+    // ekhane technology-ta stack theke remove kortesi
+    setStack((currentStack) =>
+      currentStack.filter((id) => id !== technologyId),
+    );
+
+    // ekhane remove korar por success toast dekhaitesi
+    if (technology) {
+      toast.info(`${technology.name} removed from your stack.`);
+    }
+  };
+
+  // ekhane ami stack-er sob technology ek sathe remove kortesi
+  const removeAll = () => {
+    // ekhane stack empty hole kono kaj kortesi na
+    if (stack.length === 0) {
+      return;
+    }
+
+    // ekhane sob technology stack theke remove kortesi
+    setStack([]);
+
+    // ekhane sob remove hole ekta toast dekhaitesi
+    toast.info("All technologies removed from your stack.");
+  };
+
   return (
     <div className="min-h-screen bg-white">
-      {/* ekhane ami navbar ta top e sticky rakhtesi ar niche halka border dicchi */}
+      {/* ==================== NAVBAR ==================== */}
+
       <nav className="sticky top-0 z-50 h-[68px] border-b border-gray-100 bg-white">
-        {/* ekhane ami navbar-er content ta fixed width er moddhe center kortesi */}
-        <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between">
+        <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between px-6">
           {/* ekhane ami left side e logo ta rakhtesi */}
           <div className="flex items-center">
             <img src={logo} alt="Dev Stack" className="h-8" />
           </div>
 
-          {/* ekhane ami Figma-r moto middle e navigation link gula rakhtesi */}
+          {/* ekhane ami desktop navigation link gula rakhtesi */}
           <div className="hidden items-center gap-7 md:flex">
-            {/* ekhane Home active thakay pink color dicchi */}
             <a href="#" className="text-sm font-medium text-pink-500">
               Home
             </a>
@@ -41,12 +103,10 @@ function App() {
 
           {/* ekhane ami right side e Sign In ar Sign Up rakhtesi */}
           <div className="flex items-center gap-4">
-            {/* ekhane Sign In ke simple text button hisebe rakhtesi */}
             <button className="text-sm font-medium text-gray-600">
               Sign In
             </button>
 
-            {/* ekhane ami Figma-r moto Sign Up ke rounded pink button banaitesi */}
             <button className="rounded-full bg-gradient-to-r from-orange-500 via-pink-500 to-fuchsia-600 px-5 py-2 text-sm font-medium text-white">
               Sign Up
             </button>
@@ -54,69 +114,172 @@ function App() {
         </div>
       </nav>
 
-      {/* ekhane ami navbar-er niche hero section ta rakhtesi */}
+      {/* ==================== HERO SECTION ==================== */}
+
       <section className="mx-auto flex max-w-[1200px] items-center justify-between gap-8 px-6 py-24">
-        {/* ekhane ami hero-r left side e heading, details ar button gula rakhtesi */}
+        {/* ekhane ami hero-r left side e heading ar details rakhtesi */}
         <div className="max-w-xl">
-          {/* ekhane ami heading-er main part ta rakhtesi */}
           <h1 className="text-5xl font-bold leading-tight text-gray-900">
             Build Your Ideal
             <br />
-            {/* ekhane ami heading-er second line e gradient color use kortesi */}
             <span className="bg-gradient-to-r from-orange-500 via-pink-500 to-violet-600 bg-clip-text text-transparent">
               Development Stack
             </span>
           </h1>
 
-          {/* ekhane ami Figma-r moto hero section-er details text ta rakhtesi */}
           <p className="mt-6 max-w-lg text-lg leading-8 text-gray-500">
             Explore frontend, backend, database, and tooling options, compare
             them side by side, and put together the stack that fits your next
             project.
           </p>
 
-          {/* ekhane ami hero-r duita button ek sathe rakhtesi */}
+          {/* ekhane ami hero-r duita button rakhtesi */}
           <div className="mt-8 flex items-center gap-4">
-            {/* ekhane ami primary button-e same gradient use kortesi */}
             <button className="rounded-full bg-gradient-to-r from-orange-500 via-pink-500 to-violet-600 px-6 py-3 font-medium text-white">
               Explore Technologies
             </button>
 
-            {/* ekhane ami second button-ta simple outlined rakhtesi */}
             <button className="rounded-full border border-gray-300 px-6 py-3 font-medium text-gray-700">
               Learn More
             </button>
           </div>
         </div>
 
-        {/* ekhane ami hero-r right side e banner image ta rakhtesi */}
-        <div>
+        {/* ekhane ami hero-r right side e banner image rakhtesi */}
+        <div className="hidden md:block">
           <img src={banner} alt="Technology stack" className="w-[440px]" />
         </div>
       </section>
 
-      {/* ekhane ami technologies section-er heading ar details ta rakhtesi */}
+      {/* ==================== TECHNOLOGIES ==================== */}
+
       <section className="mx-auto max-w-[1200px] px-6 py-12">
-        {/* ekhane ami technologies section-er main heading ta rakhtesi */}
-        <h2 className="text-4xl font-bold leading-tight text-gray-900">
-          Explore the{" "}
-          <span className="bg-gradient-to-r from-orange-500 via-pink-500 to-violet-600 bg-clip-text text-transparent">
-            Technologies
-          </span>
-        </h2>
+        {/* ekhane ami technologies section-er heading rakhtesi */}
+        <div>
+          <h2 className="text-4xl font-bold leading-tight text-gray-900">
+            Explore{" "}
+            <span className="bg-gradient-to-r from-orange-500 via-pink-500 to-violet-600 bg-clip-text text-transparent">
+              Technologies
+            </span>
+          </h2>
 
-        {/* ekhane ami heading-er niche technologies section-er details ta rakhtesi */}
-        <p className="mt-2 text-base text-gray-500">
-          Pick one technology per category to build your ideal stack.
-        </p>
+          <p className="mt-2 text-base text-gray-500">
+            Pick one technology per category to build your ideal stack.
+          </p>
+        </div>
 
-        {/* ekhane ami technologies-er sob card 3 ta kore column e dekhacchi */}
-        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {technologies.map((technology) => (
-            <TechnologyCard key={technology.id} technology={technology} />
-          ))}
+        {/* ekhane ami technology grid ar Your Stack sidebar pasapasi rakhtesi */}
+        <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
+          {/* ==================== TECHNOLOGY GRID ==================== */}
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {technologies.map((technology) => (
+              <TechnologyCard
+                key={technology.id}
+                technology={technology}
+                addToStack={addToStack}
+                isAdded={stack.includes(technology.id)}
+              />
+            ))}
+          </div>
+
+          {/* ==================== YOUR STACK ==================== */}
+
+          <aside className="h-fit rounded-2xl border border-gray-100 bg-white p-5 shadow-sm lg:sticky lg:top-24">
+            {/* ekhane ami Your Stack heading ar selected count rakhtesi */}
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900">Your Stack</h2>
+
+                <p className="mt-1 text-sm text-gray-500">
+                  {stack.length}{" "}
+                  {stack.length === 1
+                    ? "Technology Selected"
+                    : "Technologies Selected"}
+                </p>
+              </div>
+
+              {/* ekhane stack-e technology thaklei Remove All button dekhaitesi */}
+              {stack.length > 0 && (
+                <button
+                  onClick={removeAll}
+                  className="text-sm font-medium text-red-500 hover:text-red-600"
+                >
+                  Remove All
+                </button>
+              )}
+            </div>
+
+            {/* ==================== EMPTY STATE ==================== */}
+
+            {selectedTechnologies.length === 0 && (
+              <div className="mt-6 rounded-xl bg-gray-50 p-6 text-center">
+                <div className="text-3xl">🧰</div>
+
+                <p className="mt-3 text-sm font-medium text-gray-600">
+                  Your stack is empty.
+                </p>
+
+                <p className="mt-1 text-xs leading-5 text-gray-400">
+                  Add technologies from the list to build your stack.
+                </p>
+              </div>
+            )}
+
+            {/* ==================== SELECTED TECHNOLOGIES ==================== */}
+
+            {selectedTechnologies.length > 0 && (
+              <div className="mt-5 space-y-3">
+                {selectedTechnologies.map((technology) => (
+                  <div
+                    key={technology.id}
+                    className="flex items-center justify-between rounded-xl border border-gray-100 bg-gray-50 p-3"
+                  >
+                    {/* ekhane selected technology-r information dekhaitesi */}
+                    <div className="flex min-w-0 items-center gap-3">
+                      {/* ekhane technology-r icon dekhaitesi */}
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white">
+                        <span className="text-sm font-bold text-pink-500">
+                          {technology.name.charAt(0)}
+                        </span>
+                      </div>
+
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-semibold text-gray-800">
+                          {technology.name}
+                        </p>
+
+                        <p className="mt-1 text-xs text-gray-500">
+                          {technology.category}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* ekhane selected technology-ta remove korar button rakhtesi */}
+                    <button
+                      onClick={() => removeFromStack(technology.id)}
+                      className="ml-3 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-lg font-bold text-gray-500 hover:bg-gray-200 hover:text-gray-700"
+                      aria-label={`Remove ${technology.name}`}
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </aside>
         </div>
       </section>
+
+      {/* ekhane ami sob toast ek jaygay render kortesi */}
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+      />
     </div>
   );
 }
