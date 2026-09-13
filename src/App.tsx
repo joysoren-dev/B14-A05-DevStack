@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Menu, X } from "lucide-react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -10,6 +11,9 @@ import TechnologyCard from "./TechnologyCard";
 function App() {
   // ekhane ami user je technology-gulo stack-e add korbe segulo rakhtesi
   const [stack, setStack] = useState<number[]>([]);
+
+  // ekhane ami mobile menu open naki close seta manage kortesi
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // ekhane ami technology-r id niye stack-e add kortesi
   const addToStack = (technologyId: number) => {
@@ -71,10 +75,23 @@ function App() {
     <div className="min-h-screen bg-white">
       {/* ==================== NAVBAR ==================== */}
 
-      <nav className="sticky top-0 z-50 h-[68px] border-b border-gray-100 bg-white">
-        <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between px-6">
-          {/* ekhane ami left side e logo ta rakhtesi */}
-          <div className="flex items-center">
+      <nav className="sticky top-0 z-50 border-b border-gray-100 bg-white">
+        <div className="mx-auto flex h-[68px] max-w-[1200px] items-center justify-between px-6">
+          {/* ekhane ami mobile-e hamburger button rakhtesi */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="flex items-center justify-center md:hidden"
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? (
+              <X className="h-6 w-6 text-gray-700" />
+            ) : (
+              <Menu className="h-6 w-6 text-gray-700" />
+            )}
+          </button>
+
+          {/* ekhane ami logo ta rakhtesi */}
+          <div className="flex items-center md:mr-auto">
             <img src={logo} alt="Dev Stack" className="h-8" />
           </div>
 
@@ -102,16 +119,63 @@ function App() {
           </div>
 
           {/* ekhane ami right side e Sign In ar Sign Up rakhtesi */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 md:ml-auto md:gap-4">
             <button className="text-sm font-medium text-gray-600">
               Sign In
             </button>
 
-            <button className="rounded-full bg-gradient-to-r from-orange-500 via-pink-500 to-fuchsia-600 px-5 py-2 text-sm font-medium text-white">
+            <button className="rounded-full bg-gradient-to-r from-orange-500 via-pink-500 to-fuchsia-600 px-4 py-2 text-sm font-medium text-white md:px-5">
               Sign Up
             </button>
           </div>
         </div>
+
+        {/* ekhane ami mobile-e hamburger click korle navigation menu dekhaitesi */}
+        {isMenuOpen && (
+          <div className="border-t border-gray-100 bg-white px-6 py-4 md:hidden">
+            <div className="flex flex-col gap-4">
+              <a
+                href="#"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-sm font-medium text-pink-500"
+              >
+                Home
+              </a>
+
+              <a
+                href="#"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-sm font-medium text-gray-600"
+              >
+                Technologies
+              </a>
+
+              <a
+                href="#"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-sm font-medium text-gray-600"
+              >
+                Projects
+              </a>
+
+              <a
+                href="#"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-sm font-medium text-gray-600"
+              >
+                About
+              </a>
+
+              <a
+                href="#"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-sm font-medium text-gray-600"
+              >
+                Contact
+              </a>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* ==================== HERO SECTION ==================== */}
