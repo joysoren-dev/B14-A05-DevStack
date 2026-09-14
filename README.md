@@ -67,7 +67,6 @@ The project also includes a responsive navbar, hero section, technology cards, p
 
 # ⚛️ React Questions & Answers
 
-## ⚛️ React Questions & Answers
 
 ### 1. What is JSX, and why is it used in React?
 
